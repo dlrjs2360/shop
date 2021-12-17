@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.Jumbotron {
+  color: white;
+  background-image: url(https://blog.kakaocdn.net/dn/qT7Lx/btqSpG3FN2D/fgMQ0daKyYPLaEx4nHMun0/img.jpg);
+  background-size: cover;
+  background-position: 100%;
+  padding: 80px 0px 80px;
+}
