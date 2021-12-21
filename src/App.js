@@ -1,5 +1,12 @@
+import React, { useState } from "react"
+import data from "./component/data.js"
 import "./App.css"
+import Detail from "./component/detail.js"
+import { Link, Route, Switch } from "react-router-dom"
+import axios from "axios"
+import Cart from "./component/cart"
 import "bootstrap/dist/css/bootstrap.min.css"
+
 import {
   Nav,
   Form,
@@ -12,6 +19,8 @@ import {
 } from "react-bootstrap"
 
 function App() {
+  let [keys, key변경] = useState(data)
+  let [재고, 재고변경] = useState([10, 11, 12])
   return (
     <div className="App">
       <Navbar bg="light" expand={false}>
@@ -30,8 +39,12 @@ function App() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="#action1">Home</Nav.Link>
-                <Nav.Link href="#action2">Link</Nav.Link>
+                <Nav.Link>
+                  <Link to="/">Home</Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link to="/detail">Detail</Link>
+                </Nav.Link>
                 <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
                   <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action4">
@@ -56,19 +69,60 @@ function App() {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
-      <div className="Jumbotron">
-        <h1>20% Season Off</h1>
-        <h5>this is jumbotron by lee</h5>
-        <Button variant="primary">Primary</Button>{" "}
-      </div>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4">가나다라</div>
-          <div className="col-md-4">가나다라</div>
-          <div className="col-md-4">가나다라</div>
-        </div>
-      </div>
+      <Switch>
+        <Route exact path="/">
+          <div className="Jumbotron">
+            <h1>20% Season Off</h1>
+            <h5>Keychron is yours</h5>
+            <Button className="Button">Primary</Button>
+          </div>
+          <div className="container">
+            <div className="row">
+              {keys.map((a, i) => {
+                return <Card keychron={a} key={i}></Card>
+              })}
+            </div>
+            <Button
+              className="Button"
+              onClick={() => {
+                axios
+                  .get("https://codingapple1.github.io/shop/data2.json")
+                  .then((d) => {
+                    key변경([...keys, ...d.data])
+                  })
+                  .catch((err) => console.log(err))
+              }}
+            >
+              더보기
+            </Button>
+          </div>
+        </Route>
+
+        <Route path="/detail/:id">
+          <Detail keychron={keys} 재고={재고} 재고변경={재고변경}></Detail>
+        </Route>
+
+        <Route path="/cart">
+          <Cart></Cart>
+        </Route>
+
+        <Route path="/:id">
+          <div>아무거나 적었을 때</div>
+        </Route>
+      </Switch>
     </div>
+  )
+}
+
+function Card(props) {
+  return (
+    <>
+      <div className="col-md-4">
+        <img src={props.keychron.img} width="100%" alt="" />
+        <h4>{props.keychron.title}</h4>
+        <p>{props.keychron.content}</p>
+      </div>
+    </>
   )
 }
 
