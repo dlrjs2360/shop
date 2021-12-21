@@ -13,20 +13,24 @@ import { CSSTransition } from "react-transition-group"
 
 function Detail(props) {
   let [상태, 상태변경] = useState(true)
+
   useEffect(() => {
     let 타이머 = setTimeout(() => {
       상태변경(false)
     }, 2000)
+
     return () => {
       clearTimeout(타이머)
     }
   })
+
   let history = useHistory()
   let { id } = useParams()
   let mer = props.keychron.find((a) => {
     // eslint-disable-next-line eqeqeq
     return a.id == id
   })
+
   let [누른탭, 누른탭변경] = useState(0)
   let [스위치, 스위치변경] = useState(false)
   return (
