@@ -43,7 +43,10 @@ function App() {
                   <Link to="/">Home</Link>
                 </Nav.Link>
                 <Nav.Link>
-                  <Link to="/detail">Detail</Link>
+                  <Link to="/detail/0">Detail</Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link to="/cart">Cart</Link>
                 </Nav.Link>
                 <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
                   <NavDropdown.Item href="#action3">Action</NavDropdown.Item>

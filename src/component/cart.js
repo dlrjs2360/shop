@@ -7,21 +7,37 @@ function Cart(props) {
       <Table responsive>
         <thead>
           <tr>
-            <th>#</th>
-            {Array.from({ length: 6 }).map((_, index) => (
-              <th key={index}>Table heading</th>
-            ))}
+            <td>#</td>
+            <td>상품명</td>
+            <td>수량</td>
+            <td>변경</td>
+            <td>추가</td>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            {Array.from({ length: 6 }).map((_, index) => (
-              <td key={index}>
-                {props.state[0].name} {index}
-              </td>
-            ))}
-          </tr>
+          {props.state.map((a, i) => {
+            return (
+              <tr>
+                <td key={i}>{a.id}</td>
+                <td key={i}>{a.name}</td>
+                <td key={i}>{a.quan}</td>
+                <button
+                  onClick={() => {
+                    props.dispatch({ type: "수량증가" })
+                  }}
+                >
+                  +
+                </button>
+                <button
+                  onClick={() => {
+                    props.dispatch({ type: "수량감소" })
+                  }}
+                >
+                  -
+                </button>
+              </tr>
+            )
+          })}
         </tbody>
       </Table>
     </>
