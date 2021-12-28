@@ -1,10 +1,14 @@
 @import "./reset.scss";
 
-$메인컬러: #ff0000;
+$메인컬러: white;
 
 .red {
   color: $메인컬러;
-  background-color: grey;
+  background-color: rgb(223, 190, 101);
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
 }
 
 div.container {

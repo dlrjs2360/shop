@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router-dom"
 import { Nav } from "react-bootstrap"
 import "./detail.scss"
 import { CSSTransition } from "react-transition-group"
+import { connect } from "react-redux"
 
 // import styled from "styled-components"
 // let Box = styled.div`
@@ -50,6 +51,11 @@ function Detail(props) {
               className="btn btn-danger"
               onClick={() => {
                 props.재고변경([...props.재고])
+                props.dispatch({
+                  type: "항목추가",
+                  payload: { id: mer.id, name: mer.title, quan: mer.quan },
+                })
+                history.push("/cart")
               }}
             >
               주문하기
@@ -122,4 +128,11 @@ function 알림창() {
   return <div className="red">스타일컴포넌트</div>
 }
 
-export default Detail
+function state를props화(state) {
+  return {
+    state: state.reducer,
+    alert상태: state.reducer2,
+  }
+}
+
+export default connect(state를props화)(Detail)

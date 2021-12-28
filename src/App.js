@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import data from "./component/data.js"
 import "./App.css"
 import Detail from "./component/detail.js"
-import { Link, Route, Switch } from "react-router-dom"
+import { Link, Route, Switch, useHistory } from "react-router-dom"
 import axios from "axios"
 import Cart from "./component/cart"
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -82,7 +82,7 @@ function App() {
           <div className="container">
             <div className="row">
               {keys.map((a, i) => {
-                return <Card keychron={a} key={i}></Card>
+                return <Card keychron={a} i={i} key={i}></Card>
               })}
             </div>
             <Button
@@ -118,9 +118,15 @@ function App() {
 }
 
 function Card(props) {
+  let history = useHistory()
   return (
     <>
-      <div className="col-md-4">
+      <div
+        className="col-md-4"
+        onClick={() => {
+          history.push("/detail/" + props.keychron.id)
+        }}
+      >
         <img src={props.keychron.img} width="100%" alt="" />
         <h4>{props.keychron.title}</h4>
         <p>{props.keychron.content}</p>
